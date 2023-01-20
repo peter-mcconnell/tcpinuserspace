@@ -3,10 +3,16 @@ extern crate tun_tap;
 
 fn main() -> io::Result<()> {
     let nic = tun_tap::Iface::new("tun0", tun_tap::Mode::Tun)?;
+    // MTU of the interface is usually 1500, unless reconfigured + 4 for the header
+    let mut buf = [0u8; 1504];
     loop {
-        let mut buf = [0u8; 1504];
         let nbytes = nic.recv(&mut buf[..])?;
-        eprintln!("read {} bytes: {:x?}", nbytes, &buf[..nbytes]);
+        // 3.2 in https://www.kernel.org/doc/Documentation/networking/tuntap.txt # tuntap
+        let flags = u16::from_be_bytes([buf[0], buf[1]]);
+        let proto = u16::from_be_bytes([buf[2], buf[3]]);
+        eprintln!("read {} bytes: {:x?}", nbytes - 4, &buf[4..nbytes]);
+        eprintln!("flags: {}", flags);
+        eprintln!("proto: {}", proto);
     }
     Ok(())
 }
