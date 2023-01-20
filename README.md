@@ -14,14 +14,21 @@ References
  - https://www.rfc-editor.org/rfc/rfc1122
  - https://www.rfc-editor.org/rfc/rfc2398
 
-Play
-----
-
-Build
+Quick Play
+----------
 
 ```sh
-carbo b --release
+./run.sh
 ```
+
+Send packets to some address on our interface
+
+```sh
+ping -I tun0 192.168.0.2
+```
+
+Manual approach
+---------------
 
 Set capabilities
 
