@@ -10,9 +10,7 @@ fn main() -> io::Result<()> {
         // 3.2 in https://www.kernel.org/doc/Documentation/networking/tuntap.txt # tuntap
         let flags = u16::from_be_bytes([buf[0], buf[1]]);
         let proto = u16::from_be_bytes([buf[2], buf[3]]);
-        eprintln!("read {} bytes: {:x?}", nbytes - 4, &buf[4..nbytes]);
-        eprintln!("flags: {}", flags);
-        eprintln!("proto: {}", proto);
+        eprintln!("read {} bytes: (flags: {:x}, proto: {:x}) {:x?}", flags, proto, nbytes - 4, &buf[4..nbytes]);
     }
     Ok(())
 }
