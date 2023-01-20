@@ -14,6 +14,16 @@ References
  - https://www.rfc-editor.org/rfc/rfc1122
  - https://www.rfc-editor.org/rfc/rfc2398
 
+Debug tools
+-----------
+
+```sh
+sudo apt install tshark
+
+# monitor our interface
+sudo tshark -i tun0
+```
+
 Quick Play
 ----------
 
